@@ -1,61 +1,85 @@
-## Hi there! this my new project
-**Welcome to the Hotstart App Deployment project! This project demonstrates how to deploy a Hotstar Next.js application on Kubernetes cluster using modern DevOps tools, practices and following a DevSecOps approach.**
+# 🚀 DevOps Lab – CI/CD Pipeline with Jenkins, SonarQube & Docker on AWS
 
-## 🛠️ **Tools & Services Used**
-
-| **Category**       | **Tools**                                                                                                                                                                                                 |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Version Control** | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)                                                                                                       |
-| **CI/CD**           | ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white)                                                                                                    |
-| **Code Quality**    | ![SonarQube](https://img.shields.io/badge/SonarQube-4E9BCD?style=flat-square&logo=sonarqube&logoColor=white)                                                                                              |
-| **Containerization**| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)                                                                                                       |
-| **Orchestration**   | ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)                                                                                          |
-| **Monitoring**      | ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white) ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white) |
-| **Security**        | ![OWASP](https://img.shields.io/badge/OWASP-000000?style=flat-square&logo=owasp&logoColor=white) ![Trivy](https://img.shields.io/badge/Trivy-00979D?style=flat-square&logo=trivy&logoColor=white)         |
-| **IAC**             | ![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=flat-square&logo=terraform&logoColor=white)
----
-## 🚦 **Project Stages**
-
-### **Phase 1: Deployment to Docker Container**
-- Containerize the application using Docker.
-- Build and push Docker images to a container registry.
-- Run the application in a Docker container.
-
-### **Phase 2: Deployment to EKS Cluster with Monitoring**
-- Deploy the application to an **Amazon EKS (Elastic Kubernetes Service)** cluster.
-- Set up **Prometheus** and **Grafana** for monitoring and visualization.
-- Implement **Trivy** for vulnerability scanning and **OWASP** for security best practices.
+> **Lab personnel DevOps** — Mise en place d'un pipeline CI/CD complet pour le déploiement d'une application Next.js (clone Hotstar) sur infrastructure AWS.
 
 ---
 
-## 📂 **Code Repository**
-Explore the code and contribute to the project:  
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Aseemakram19/hotstar-kubernetes.git)
+## 🎯 Objectif
+
+Mettre en pratique un workflow DevOps de bout en bout : de l'intégration continue (Jenkins + SonarQube) à la conteneurisation (Docker) et au déploiement sur cluster Kubernetes managé (AWS EKS).
 
 ---
-## 📹 **Project Video**
-Watch the step-by-step deployment process:  
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/VPJ4gesLXOc)
+
+## 🛠️ Stack technique
+
+| Catégorie | Outils |
+|---|---|
+| **CI/CD** | Jenkins (pipeline déclaratif Groovy) |
+| **Qualité de code** | SonarQube + Quality Gates |
+| **Sécurité** | Trivy (scan images Docker), OWASP Dependency Check |
+| **Conteneurisation** | Docker, Docker Hub |
+| **Orchestration** | Kubernetes, Amazon EKS |
+| **Infrastructure** | AWS EC2, Security Groups, IAM |
+| **IaC** | Terraform (provisioning serveur de monitoring) |
+| **Monitoring** | Prometheus, Grafana, Blackbox Exporter |
+| **Versioning** | Git, GitHub |
 
 ---
-## 🚀 **Other DevOps Projects**
 
-| **Project**                                | **Video Link**                                                                                   |
-|--------------------------------------------|--------------------------------------------------------------------------------------------------|
-| **JAVA APPLICATION DEPLOYMENT Project**                     | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=R98DHKqAEos) |
-| **Deployment of BINGO in Kubernetes Cluster Monitoring**  | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/j6YxADVF0W8) |
-| **Real-time CICD pipeline Website Jenkins CI CD**         | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/xGWx_cXb9DE) |
-| **DevOps Project , Application deployment on App server via Terraform, Jenkins, SonarQube**                     | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/xGWx_cXb9DE) |
-| **Realtime NODE.js App deployment with PM2 , Shell script, Jenkins, SonarQube ,Github ,Domain SSL cert**                     | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/MFtUCfQ1RX0) |
+## ✅ Ce que j'ai implémenté
 
-## 🤝 **Connect with Me**
+### Phase 1 — Infrastructure & outillage
+- Provisioning d'une instance EC2 (Ubuntu) sur AWS
+- Configuration des Security Groups (ouverture des ports Jenkins, SonarQube, Docker, SMTP...)
+- Installation automatisée des outils via scripts shell : Jenkins, Docker, SonarQube (conteneur), kubectl, eksctl, Terraform, Trivy
 
-Let's connect and discuss DevSecOps  
+### Phase 2 — Pipeline CI/CD Jenkins
+- Intégration d'un **repository GitHub privé** via Personal Access Token
+- Configuration des plugins Jenkins : SonarQube Scanner, NodeJS, OWASP Dependency Check, Docker Pipeline, Blue Ocean
+- Rédaction du **Jenkinsfile déclaratif** (Groovy) couvrant les stages :
+  - `Git Checkout`
+  - `SonarQube Analysis` + Quality Gate
+  - `OWASP Dependency Check`
+  - `npm install`
+  - `Trivy FS Scan`
+  - `Docker Build & Push` (Docker Hub)
+  - `Trivy Image Scan`
+  - `Deploy to Container`
+- Configuration des **alertes email** via Gmail SMTP (Jenkins post-build actions)
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohammed-aseem-akram/)  
+### Phase 3 — Déploiement Kubernetes (EKS)
+- Création du cluster EKS via `eksctl`
+- Application des manifests Kubernetes (`deployment` + `service` LoadBalancer)
+- Vérification de l'**auto-healing** Kubernetes (suppression de pod et observation du redémarrage automatique)
 
+---
 
+## 📂 Structure du projet
 
+```
+├── Jenkinsfile              # Pipeline déclaratif CI/CD
+├── Dockerfile               # Build de l'image applicative
+├── K8S/
+│   └── manifest.yml         # Deployment + Service Kubernetes
+├── Terraform/               # Provisioning du serveur de monitoring
+├── scripts/                 # Scripts d'installation des outils DevOps
+└── promotheus_configfile.txt # Configuration Prometheus + Blackbox Exporter
+```
 
+---
 
+## 📌 Points clés retenus
 
+- L'importance des **Quality Gates** SonarQube pour bloquer un pipeline en cas de code non conforme
+- La gestion des **credentials Jenkins** (tokens GitHub, Docker Hub, SonarQube) sans exposition dans le code
+- La différence entre `NodePort` et `LoadBalancer` en Kubernetes pour l'exposition d'un service
+- Le fonctionnement du **self-healing Kubernetes** : le cluster recrée automatiquement les pods supprimés pour maintenir le `replicaSet` souhaité
+
+---
+
+## 👩‍💻 Auteure
+
+**Wiame EL YAKINI** — Ingénieure Infrastructure & DevOps
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/wiame-el-yakini/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/wiameelyakini)
